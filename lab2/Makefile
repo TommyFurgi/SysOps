@@ -9,7 +9,7 @@ CFLAGS = -Wall -Wextra -g
 
 .PHONY: all static_library shared_library client_static client_shared client_dynamic clean
 
-all: client_static client_shared client_shared client_dynamic client_dynamic
+all: client_static client_shared client_dynamic 
 
 # Creating static library with .a extension
 static_library:
@@ -22,13 +22,13 @@ shared_library:
 	$(CXX) -shared collatz.o -o libcollatz.so
 
 client_static: static_library
-	$(CXX) $(CFLAGS) client_static.c -L. -lcollatz -o client_static
+	$(CXX) $(CFLAGS) client.c -L. -lcollatz -o client_static
 
 client_shared: shared_library
-	$(CXX) $(CFLAGS) client_shared.c -L. -lcollatz -Wl,-rpath=. -o client_shared
+	$(CXX) $(CFLAGS) client.c -L. -lcollatz -Wl,-rpath=. -o client_shared
 
 client_dynamic: shared_library
-	$(CXX) $(CFLAGS) -DMAX_ITER=50 client_dynamic.c -o client_dynamic -ldl
+	$(CXX) $(CFLAGS) client.c -o client_dynamic -ldl -D DYNAMIC_CLIENT
 
 
 test_static: client_static
