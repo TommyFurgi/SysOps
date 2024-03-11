@@ -27,7 +27,6 @@ int main() {
             printf("blad dlsym\n");
             return 0;
         }
-        printf("ala ma kota");
 
     #endif
     printf("Collatz funcion: %d \n", collatz_conjecture(5));
