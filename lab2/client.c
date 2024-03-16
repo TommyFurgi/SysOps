@@ -2,11 +2,13 @@
 
 
 #ifdef DYNAMIC_CLIENT
-    #include "dlfcn.h"
+    #include <dlfcn.h> // Include dlfcn.h for dynamic loading
 
     int (*collatz_conjecture)(int input);
     int (*test_collatz_convergence)(int input, int max_iter);
-#else
+#endif
+
+#ifndef DYNAMIC_CLIENT
     #include "collatz.h"
 #endif
 
@@ -17,18 +19,15 @@ int main() {
             printf("blad otw.biblioteki\n");
             return 0;
         }
-
-        // int (*collatz_conjecture)(int input);
-        // int (*test_collatz_convergence)(int input, int max_iter);
-
+        
         collatz_conjecture = dlsym(handler, "collatz_conjecture");
         test_collatz_convergence = dlsym(handler, "test_collatz_convergence");
         if (dlerror() != 0) {
             printf("blad dlsym\n");
             return 0;
         }
-
     #endif
+
     printf("Collatz funcion: %d \n", collatz_conjecture(5));
     printf("Test collatz funcion: %d \n", test_collatz_convergence(11,20));
     

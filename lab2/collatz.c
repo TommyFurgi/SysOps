@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "collatz.h"
+// #include "collatz.h"
 
 int collatz_conjecture(int value) {
     if ((value % 2) == 0) 
