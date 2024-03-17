@@ -1,4 +1,4 @@
-    # LAB 3 - Operacje na plikach
+# LAB 3 - Operacje na plikach
 
 W zadaniu 1 można wybrać do zaimplementowania tylko jeden wariant:
 - albo `fopen(), fseek(), fread(), fwrite(), fclose()`
