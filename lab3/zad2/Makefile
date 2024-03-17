@@ -10,9 +10,9 @@ calculate_files_size:
 
 test_claculation: calculate_files_size
 	@echo "============================== main.c output: ==============================:"
-	./main ../test_directory/
+	./main ./calculation_dir/
 	@echo "============================== wc --bytes output: ==============================:"
-	wc --bytes ../test_directory/*
+	wc --bytes ./calculation_dir/*
 
 
 clean:
