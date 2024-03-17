@@ -1,4 +1,4 @@
-    # LAB2 - Biblioteki w systemie Unix
+# LAB2 - Biblioteki w systemie Unix
 
 Biblioteki są kluczowymi składnikami każdego systemu operacyjnego, a ich zrozumienie jest niezbędne dla skutecznego tworzenia i zarządzania aplikacjami. W ramach tego ćwiczenia przyjrzymy się trzem głównym typom bibliotek: statycznym, współdzielonym i dynamicznym.
 
