@@ -47,7 +47,7 @@ int main(int argc, char *argv[]) {
 
         // stat() - służy do pobierania informacji o pliku
         if (stat(path_buffer, &file_stat) == -1) {
-            perror("Błąd przy pobieraniu informacji o pliku");
+            error("Błąd przy pobieraniu informacji o pliku");
             continue;
         }
 
