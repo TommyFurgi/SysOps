@@ -33,7 +33,7 @@ int main(int argc, char** argv) {
         printf("PID dziecka = %d, PID rodzica = %d\n", getpid(), getppid());
         printf("Lokalna zmienna dziecka = %d, globalna zmienna dziecka = %d\n", local_var, global_var);
 
-        int status = execl("/bin/ls", "ls", argv[1], NULL);
+        int status = execl("/bin/ls", "ls", "-l", argv[1], NULL);
         if (status == -1) {
             perror("Błąd exec");
             exit(EXIT_FAILURE);
@@ -44,8 +44,8 @@ int main(int argc, char** argv) {
 
     // rodzic
     int status = 0;
-    wait(&status);
-    int child_status = WEXITSTATUS(status);
+    wait(&status); // czeka na zakończenie dowolnego procesu
+    int child_status = WEXITSTATUS(status); // pobiera kod w wyjscia procesu potomnego 
 
     printf("Proces rodzica\n");
     printf("PID rodzica = %d, PID dziecka = %d\n", getpid(), child_pid);
