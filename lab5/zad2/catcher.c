@@ -29,7 +29,7 @@ void sigusr_handler(int signo, siginfo_t *info, void *context) {
 }
 
 int main() {
-    printf("Sender - numer PID: %d \n", getpid());
+    printf("Catcher - numer PID: %d \n", getpid());
 
     struct sigaction action; // struktura przechowywujaca info dot obslugi sygnalow
     action.sa_handler = sigusr_handler;
