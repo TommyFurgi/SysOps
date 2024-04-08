@@ -26,7 +26,7 @@ int main(int argc, char **argv) {
         }
     }
 
-    // while(wait(NULL) > 0); // oczekuje na zakończenie wszytkich procesów potomnych
+    while(wait(NULL) > 0); // oczekuje na zakończenie wszytkich procesów potomnych
     // gdy nie ma procesów potomnych wait(NULL) zwraca -1 
 
     printf("Liczba procesów jakie zostały utworzone: %lld \n", processes);
