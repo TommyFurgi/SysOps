@@ -165,7 +165,8 @@ int main() {
     if (semctl(semid, 2, IPC_RMID) == -1) {
         perror("semctl");
         exit(EXIT_FAILURE);
-
+    }
+    
     if (shmctl(shmid, IPC_RMID, NULL) == -1) {
         perror("shmctl");
         exit(EXIT_FAILURE);
