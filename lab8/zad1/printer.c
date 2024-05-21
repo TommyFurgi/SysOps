@@ -160,21 +160,12 @@ int main() {
         exit(EXIT_FAILURE);
     }
     
-    // Usuwanie semaforów
+    // usnunięcie zioru semafor
     if (semctl(semid, 0, IPC_RMID) == -1) {
-        perror("semctl");
+        perror("semctl IPC_RMID");
         exit(EXIT_FAILURE);
     }
-
-    if (semctl(semid, 1, IPC_RMID) == -1) {
-        perror("semctl");
-        exit(EXIT_FAILURE);
-    }
-
-    if (semctl(semid, 2, IPC_RMID) == -1) {
-        perror("semctl");
-        exit(EXIT_FAILURE);
-    }
+    
 
     if (shmctl(shmid, IPC_RMID, NULL) == -1) {
         perror("shmctl");
