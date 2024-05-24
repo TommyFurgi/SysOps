@@ -1,3 +1,6 @@
+#define _XOPEN_SOURCE 700
+#define _DEFAULT_SOURCE
+
 #include <ncurses.h>
 #include <locale.h>
 #include <unistd.h>
@@ -9,6 +12,7 @@
 #include <signal.h>
 #include "grid.h"
 #include <math.h>
+#include <signal.h>
 
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
 #define GRID_SIZE_X 20
@@ -34,7 +38,13 @@ void* thread_compute(void* arg) {
     int start = data->start_index;
     int end = data->end_index;
 
-    signal(SIGUSR1, handler);
+    // signal(SIGUSR1, handler);
+    struct sigaction sa;
+	sa.sa_handler = handler;
+	sigemptyset(&sa.sa_mask);
+	sa.sa_flags = 0;
+	sigaction(SIGUSR1, &sa, NULL);
+
 
     while (true) {
         pause();
