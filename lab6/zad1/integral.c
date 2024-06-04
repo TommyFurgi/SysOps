@@ -32,6 +32,11 @@ int main(int argc, char** argv) {
     double total_integral = 0;
     int pipes_fd[num_processes][2];
 
+    if ((double)1/num_processes < width) {
+        fprintf(stderr, "Bład, za mała dokładność dla tej takiej liczby procesów \n");
+        return -1;
+    }
+
 
     for (int i = 0; i < num_processes; i++){
         pid_t pid;

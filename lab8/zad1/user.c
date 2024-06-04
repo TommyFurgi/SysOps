@@ -37,7 +37,7 @@ struct SharedMemory *sharedMem; // Wskaźnik do pamięci wspólnej
 
 // Funkcja inicjalizująca semafory
 void initSemaphores() {
-    semid = semget(SHARED_KEY, 0, 0666);
+    semid = semget(SHARED_KEY, 3, 0666);
     if (semid == -1) {
         perror("semget");
         exit(EXIT_FAILURE);
