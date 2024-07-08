@@ -1,0 +1,53 @@
+MUTEXY:
+
+inicjalizajca:
+pthread_mutex_t aaa = PTHREAD_MUTEX_INITIALIZER;
+pthread_cond_t bbb = PTHREAD_COND_INITIALIZER;
+
+Zablokowanie obiektu przez wątek może zostać wykonane poprzez jedną z następujących funkcji:
+
+int pthread_mutex_lock(pthread_mutex_t *mutex)
+ - która jeśli obiektu mutex-a jest zablokowany przez inny wątek usypia obecny 
+ wątek, aż mutex zostanie odblokowany. Z kolei jeśli obiekt mutex-a jest już 
+ zablokowany przez obecny wątek to albo: 
+    
+    - usypia wywołujący ją wątek (jeśli jest to mutex typu "fast") (TEGO UZYTO W ZADANIU)
+    - zwraca natychmiast kod błędu EDEADLK (jeśli jest to mutex typu "error checking")
+         pthread_mutexattr_t attr;
+         pthread_mutexattr_init(&attr);
+         pthread_mutexattr_settype(&attr, PTHREAD_MUTEX_ERRORCHECK);
+         
+    - normalnie kontynuuje prace, zwiększając licznik blokad mutex-a przez dany wątek
+     (jeśli mutex jest typu "recursive"); odpowiednia liczba razy odblokowań musi 
+     nastąpić aby mutex powrócił do stanu "unlocked"
+
+- int pthread_mutex_trylock(pthread_mutex_t *mutex) - która zachowuje się podobnie
+ jak powyższa, z tym że obecny wątek nie jest blokowany jeśli mutex jest już 
+ zablokowany przez inny wątek, a jedynie ustawia flagę EBUSY.
+
+- pthread_mutex_timedlock - jest rozwinięciem funkcji pthread_mutex_lock - 
+ podawany jest maksymalny czas czekania wątku na odblokowanie 
+ (zablokowanego przez inny wątek) mutex-a.
+
+Odblokowanie mutex-a wykonywane jest za pomocą funkcji pthread_mutex_unlock.
+
+
+pthread_mutex_t x_mutex = PTHREAD_MUTEX_INITIALIZER;
+pthread_mutex_lock(&x_mutex);
+pthread_mutex_unlock(&x_mutex);
+
+
+Warunki Sprawdzające (Condition Variables)
+Gdy wątek dochodzi do sekcji zależnej od pewnego warunku (np. flagi), wykonywana jest sekwencja:
+
+Wątek zajmuje mutexa następnie sprawdza warunek. - WYSYŁAMY SYGNAŁ
+
+Jeżeli warunek jest spełniony – wtedy wątek wykonuje kolejne instrukcje.
+Jeśli warunek nie jest spełniony – wtedy wątek jednocześnie odblokowuje mutex 
+i wstrzymuje działanie aż do spełnienia warunku (poinformowania o zmianie 
+warunku przez inny watek).
+
+int pthread_cond_wait(pthread_cond_t *cond, pthread_mutex_t *mutex) - 
+ustawia wątek w tryb oczekiwania w czasie, którego Mutex jest odblokowany
+int pthread_cond_broadcast(pthread_cond_t *cond) - powiadamia wszystkie oczekujące wątki
+int pthread_cond_signal(pthread_cond_t *cond) - powiadamia tylko jeden wątek
